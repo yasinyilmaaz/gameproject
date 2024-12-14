@@ -1,0 +1,10 @@
+﻿################################################################################
+# Bu .gitignore dosyası Microsoft(R) Visual Studio tarafından otomatik olarak oluşturulmuştur.
+################################################################################
+
+/.vs/gameproject/FileContentIndex/095e48d4-4ceb-456c-bfc2-0c0562fc3490.vsidx
+/.vs/gameproject/CopilotIndices/0.2.1657.32929
+/.vs/gameproject/FileContentIndex
+/.vs/gameproject/v17
+*.json
+*.sqlite
