@@ -53,23 +53,26 @@ void Uygulama::fareTiklandi(sf::Event::MouseButtonEvent olay)
 
 void Uygulama::karakterhasar()
 {
-	FloatRect karakterbox = karakter.getsekil().getGlobalBounds();
+	FloatRect k1box = karakter.getk1().getGlobalBounds();
+	FloatRect k2box = karakter.getk2().getGlobalBounds();
+	FloatRect k3box = karakter.getk3().getGlobalBounds();
+	FloatRect k4box = karakter.getk4().getGlobalBounds();
 	FloatRect dusmanbox = dusman.getsekil().getGlobalBounds();
-	if (karakterbox.intersects(dusmanbox))
+	if (k1box.intersects(dusmanbox) || k2box.intersects(dusmanbox) || k3box.intersects(dusmanbox) || k4box.intersects(dusmanbox))
 	{
-		if (karakter.konumGetir().y > dusman.konumGetir().y)
-		{
-			karakter.karakteritis(YON::Yukari);
-		}
-		if (karakter.konumGetir().y < dusman.konumGetir().y)
+		if (k1box.intersects(dusmanbox))
 		{
 			karakter.karakteritis(YON::Asagi);
 		}
-		if (karakter.konumGetir().x > dusman.konumGetir().x)
+		if (k3box.intersects(dusmanbox))
+		{
+			karakter.karakteritis(YON::Yukari);
+		}
+		if (k4box.intersects(dusmanbox))
 		{
 			karakter.karakteritis(YON::Sag);
 		}
-		if (karakter.konumGetir().x < dusman.konumGetir().x)
+		if (k2box.intersects(dusmanbox))
 		{
 			karakter.karakteritis(YON::Sol);
 		}
@@ -83,10 +86,6 @@ void Uygulama::karakterhasar()
 		else if (Can <= 0) {
 			cout << Can << endl;
 		}
-	}
-	if (!karakterbox.intersects(dusmanbox))
-	{
-
 	}
 }
 
@@ -127,10 +126,10 @@ void Uygulama::baslat(int fps)
 
 		if (gecenSure >= cerceveSuresi)
 		{
-
 			cerceveOlustur();
 			karakter.karakterKontrol();
 			karakterhasar();
+			dusman.hareket(karakter.guncelkonum());
 			gecenSure = sf::seconds(0.0f);
 			saat.restart();
 		}

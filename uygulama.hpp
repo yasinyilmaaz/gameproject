@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "Pencere.hpp"
 #include "karakter.hpp"
 #include "dusman.hpp"

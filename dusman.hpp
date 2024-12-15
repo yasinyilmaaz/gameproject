@@ -1,6 +1,6 @@
-#pragma once
 #include "Cizilebilir.hpp"
 #include <time.h>
+#include <cmath>
 
 class Dusman :public Cizilebilir {
 	RectangleShape sekil;
@@ -15,8 +15,9 @@ public:
 	void boyutAta(float boyut);
 	float hizgetir();
 	void hizAta(float hiz);
-	void hareket();
+	void hareket(Vector2f hedef);
 	void dusmanUret();
 	void ayarla(unsigned int yukseklik, unsigned int genislik);
 	RectangleShape getsekil();
+	Vector2f Dusmanyol(Vector2f& yol);
 };

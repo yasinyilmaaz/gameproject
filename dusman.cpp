@@ -37,8 +37,11 @@ void Dusman::hizAta(float hiz)
     this->hiz = hiz;
 }
 
-void Dusman::hareket()
+void Dusman::hareket(Vector2f hedef)
 {
+    Vector2f yol = hedef - mkonum;
+    sf::Vector2f dusmanyol = Dusmanyol(yol);
+    mkonum += dusmanyol * hiz;
 }
 
 void Dusman::dusmanUret()
@@ -58,4 +61,11 @@ void Dusman::ayarla(unsigned int yukseklik, unsigned int genislik)
 RectangleShape Dusman::getsekil()
 {
     return sekil;
+}
+
+Vector2f Dusman::Dusmanyol(Vector2f& yol)
+{
+    float deger = std::sqrt(yol.x * yol.x + yol.y * yol.y);
+    if (deger == 0) return sf::Vector2f(0.f, 0.f);
+    return yol / deger;
 }

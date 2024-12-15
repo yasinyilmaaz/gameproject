@@ -7,13 +7,29 @@ Karakter::Karakter()
     sekil.setOutlineThickness(2);
     boyutAta(30);
     hizAta(5);
+    k1.setSize(Vector2f(30, 5));
+    k2.setSize(Vector2f(5, 30));
+    k3.setSize(Vector2f(30, 5));
+    k4.setSize(Vector2f(5, 30));
+    k1.setFillColor(Color::Transparent);
+    k2.setFillColor(Color::Transparent);
+    k3.setFillColor(Color::Transparent);
+    k4.setFillColor(Color::Transparent);
 }
 
 void Karakter::ciz(Pencere& pencere)
 {
     sekil.setPosition(mkonum + Vector2f(640, 360));
-    pencere.ciz(sekil);
+    k1.setPosition(mkonum + Vector2f(640, 355));
+    k2.setPosition(mkonum + Vector2f(670, 360));
+    k3.setPosition(mkonum + Vector2f(642, 390));
+    k4.setPosition(mkonum + Vector2f(637, 360));
 
+    pencere.ciz(sekil);
+    pencere.ciz(k1);
+    pencere.ciz(k2);
+    pencere.ciz(k3);
+    pencere.ciz(k4);
 }
 
 void Karakter::yonAta(YON yon)
@@ -98,6 +114,26 @@ RectangleShape Karakter::getsekil()
     return sekil;
 }
 
+RectangleShape Karakter::getk1()
+{
+    return k1;
+}
+
+RectangleShape Karakter::getk2()
+{
+    return k2;
+}
+
+RectangleShape Karakter::getk3()
+{
+    return k3;
+}
+
+RectangleShape Karakter::getk4()
+{
+    return k4;
+}
+
 void Karakter::karakteritis(YON yon)
 {
     switch (yon)
@@ -121,6 +157,13 @@ void Karakter::karakteritis(YON yon)
     default:
         break;
     }
+
+}
+
+Vector2f Karakter::guncelkonum()
+{
+    Vector2f gkonum = sekil.getPosition();
+    return gkonum;
 
 }
 
