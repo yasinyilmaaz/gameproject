@@ -7,6 +7,10 @@ class Uygulama
 	Pencere pencere;
 	Karakter karakter;
 	Dusman dusman;
+	vector<Dusman> dusmanlar;
+	float dusmanuretmehiziMax = 50.f;
+	float dusmanuretmehizi = this->dusmanuretmehiziMax;
+	int maxDusman = 5;
 	int Can = 3;
 	sf::Clock saat;
 	sf::Time cerceveSuresi;
@@ -19,6 +23,9 @@ class Uygulama
 	void fareHareket(sf::Event::MouseMoveEvent olay);
 	void fareTiklandi(sf::Event::MouseButtonEvent olay);
 	void karakterhasar();
+	void dusmanuret();
+	void dusmanciz();
+	void dusmanguncelle();
 public:
 	Uygulama();
 	void insaEt(int genislik, int yukseklik);

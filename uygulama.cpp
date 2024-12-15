@@ -9,7 +9,7 @@ void Uygulama::cizimFonksiyonu()
 {
 	pencere.temizle();
 	karakter.ciz(pencere);
-	dusman.ciz(pencere);
+	dusmanciz();
 	pencere.goster();
 }
 
@@ -57,35 +57,71 @@ void Uygulama::karakterhasar()
 	FloatRect k2box = karakter.getk2().getGlobalBounds();
 	FloatRect k3box = karakter.getk3().getGlobalBounds();
 	FloatRect k4box = karakter.getk4().getGlobalBounds();
-	FloatRect dusmanbox = dusman.getsekil().getGlobalBounds();
-	if (k1box.intersects(dusmanbox) || k2box.intersects(dusmanbox) || k3box.intersects(dusmanbox) || k4box.intersects(dusmanbox))
+	for (auto& d : dusmanlar) {
+		FloatRect dusmanbox = d.getsekil().getGlobalBounds();
+		if (k1box.intersects(dusmanbox) || k2box.intersects(dusmanbox) || k3box.intersects(dusmanbox) || k4box.intersects(dusmanbox))
+		{
+			if (k1box.intersects(dusmanbox))
+			{
+				karakter.karakteritis(YON::Asagi);
+			}
+			if (k3box.intersects(dusmanbox))
+			{
+				karakter.karakteritis(YON::Yukari);
+			}
+			if (k4box.intersects(dusmanbox))
+			{
+				karakter.karakteritis(YON::Sag);
+			}
+			if (k2box.intersects(dusmanbox))
+			{
+				karakter.karakteritis(YON::Sol);
+			}
+			Can--;
+			if (Can == 2) {
+				karakter.renkayarla(Color::Blue);
+			}
+			else if (Can == 1) {
+				karakter.renkayarla(Color::Black);
+			}
+			else if (Can <= 0) {
+				cout << Can << endl;
+			}
+		}
+	}
+}
+
+void Uygulama::dusmanuret()
+{
+	dusman.dusmanUret();
+	dusmanlar.push_back(dusman);
+}
+
+void Uygulama::dusmanciz()
+{
+	for (auto& d : dusmanlar) {
+		d.ciz(pencere);
+	}
+}
+
+void Uygulama::dusmanguncelle()
+{
+	if (dusmanlar.size() < maxDusman)
 	{
-		if (k1box.intersects(dusmanbox))
+		if (dusmanuretmehizi >= dusmanuretmehiziMax)
 		{
-			karakter.karakteritis(YON::Asagi);
+			dusmanuret();
+			dusmanuretmehizi = 0.f;
 		}
-		if (k3box.intersects(dusmanbox))
+		else
 		{
-			karakter.karakteritis(YON::Yukari);
+			dusmanuretmehizi += 1.f;
 		}
-		if (k4box.intersects(dusmanbox))
-		{
-			karakter.karakteritis(YON::Sag);
-		}
-		if (k2box.intersects(dusmanbox))
-		{
-			karakter.karakteritis(YON::Sol);
-		}
-		Can--;
-		if (Can == 2) {
-			karakter.renkayarla(Color::Blue);
-		}
-		else if (Can == 1) {
-			karakter.renkayarla(Color::Black);
-		}
-		else if (Can <= 0) {
-			cout << Can << endl;
-		}
+	}
+	for (int i = 0; i < dusmanlar.size(); i++)
+	{
+		bool silindi = false;
+		dusmanlar[i].hareket(karakter.guncelkonum());
 	}
 }
 
@@ -129,7 +165,7 @@ void Uygulama::baslat(int fps)
 			cerceveOlustur();
 			karakter.karakterKontrol();
 			karakterhasar();
-			dusman.hareket(karakter.guncelkonum());
+			dusmanguncelle();
 			gecenSure = sf::seconds(0.0f);
 			saat.restart();
 		}

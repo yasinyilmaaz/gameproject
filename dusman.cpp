@@ -46,9 +46,30 @@ void Dusman::hareket(Vector2f hedef)
 
 void Dusman::dusmanUret()
 {
+    int a, b;
     srand(time(0));
-    int x = (rand() % yukseklik);
-    int y = (rand() % genislik);
+    if (rand() % 2 == 0) {
+        a = 360; b = 600;
+        if (rand() % yukseklik < 360)
+        {
+            a = 720;
+        }if (rand() % genislik < 600)
+        {
+            a = 1280;
+        }
+    }
+    else {
+        a = -360; b = -600;
+        if (rand() % yukseklik > 360)
+        {
+            a = -720;
+        }if (rand() % genislik > 600)
+        {
+            a = -1280;
+        }
+    }
+    int x = (rand() % yukseklik + a);
+    int y = (rand() % genislik + b);
     mkonum = Vector2f(y, x);
 }
 
