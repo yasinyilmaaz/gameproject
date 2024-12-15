@@ -9,7 +9,7 @@ void Uygulama::cizimFonksiyonu()
 {
 	pencere.temizle();
 	karakter.ciz(pencere);
-	dusman.ciz(pencere);
+	dusmanciz();
 	pencere.goster();
 }
 
@@ -53,40 +53,75 @@ void Uygulama::fareTiklandi(sf::Event::MouseButtonEvent olay)
 
 void Uygulama::karakterhasar()
 {
-	FloatRect karakterbox = karakter.getsekil().getGlobalBounds();
-	FloatRect dusmanbox = dusman.getsekil().getGlobalBounds();
-	if (karakterbox.intersects(dusmanbox))
-	{
-		if (karakter.konumGetir().y > dusman.konumGetir().y)
+	FloatRect k1box = karakter.getk1().getGlobalBounds();
+	FloatRect k2box = karakter.getk2().getGlobalBounds();
+	FloatRect k3box = karakter.getk3().getGlobalBounds();
+	FloatRect k4box = karakter.getk4().getGlobalBounds();
+	for (auto& d : dusmanlar) {
+		FloatRect dusmanbox = d.getsekil().getGlobalBounds();
+		if (k1box.intersects(dusmanbox) || k2box.intersects(dusmanbox) || k3box.intersects(dusmanbox) || k4box.intersects(dusmanbox))
 		{
-			karakter.karakteritis(YON::Yukari);
-		}
-		if (karakter.konumGetir().y < dusman.konumGetir().y)
-		{
-			karakter.karakteritis(YON::Asagi);
-		}
-		if (karakter.konumGetir().x > dusman.konumGetir().x)
-		{
-			karakter.karakteritis(YON::Sag);
-		}
-		if (karakter.konumGetir().x < dusman.konumGetir().x)
-		{
-			karakter.karakteritis(YON::Sol);
-		}
-		Can--;
-		if (Can == 2) {
-			karakter.renkayarla(Color::Blue);
-		}
-		else if (Can == 1) {
-			karakter.renkayarla(Color::Black);
-		}
-		else if (Can <= 0) {
-			cout << Can << endl;
+			if (k1box.intersects(dusmanbox))
+			{
+				karakter.karakteritis(YON::Asagi);
+			}
+			if (k3box.intersects(dusmanbox))
+			{
+				karakter.karakteritis(YON::Yukari);
+			}
+			if (k4box.intersects(dusmanbox))
+			{
+				karakter.karakteritis(YON::Sag);
+			}
+			if (k2box.intersects(dusmanbox))
+			{
+				karakter.karakteritis(YON::Sol);
+			}
+			Can--;
+			if (Can == 2) {
+				karakter.renkayarla(Color::Blue);
+			}
+			else if (Can == 1) {
+				karakter.renkayarla(Color::Black);
+			}
+			else if (Can <= 0) {
+				cout << Can << endl;
+			}
 		}
 	}
-	if (!karakterbox.intersects(dusmanbox))
-	{
+}
 
+void Uygulama::dusmanuret()
+{
+	dusman.dusmanUret();
+	dusmanlar.push_back(dusman);
+}
+
+void Uygulama::dusmanciz()
+{
+	for (auto& d : dusmanlar) {
+		d.ciz(pencere);
+	}
+}
+
+void Uygulama::dusmanguncelle()
+{
+	if (dusmanlar.size() < maxDusman)
+	{
+		if (dusmanuretmehizi >= dusmanuretmehiziMax)
+		{
+			dusmanuret();
+			dusmanuretmehizi = 0.f;
+		}
+		else
+		{
+			dusmanuretmehizi += 1.f;
+		}
+	}
+	for (int i = 0; i < dusmanlar.size(); i++)
+	{
+		bool silindi = false;
+		dusmanlar[i].hareket(karakter.guncelkonum());
 	}
 }
 
@@ -127,10 +162,10 @@ void Uygulama::baslat(int fps)
 
 		if (gecenSure >= cerceveSuresi)
 		{
-
 			cerceveOlustur();
 			karakter.karakterKontrol();
 			karakterhasar();
+			dusmanguncelle();
 			gecenSure = sf::seconds(0.0f);
 			saat.restart();
 		}
