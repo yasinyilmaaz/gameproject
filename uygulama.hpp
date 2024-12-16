@@ -1,17 +1,24 @@
 #pragma once
 #include "Pencere.hpp"
 #include "karakter.hpp"
-#include "dusman.hpp"
+#include "mermi.hpp"
 class Uygulama
 {
 	Pencere pencere;
 	Karakter karakter;
 	Dusman dusman;
 	vector<Dusman> dusmanlar;
+	Mermi mermi;
+	vector<Mermi> mermiler;
 	float dusmanuretmehiziMax = 50.f;
 	float dusmanuretmehizi = this->dusmanuretmehiziMax;
 	int maxDusman = 5;
+	float mermiuretmehiziMax = 50.f;
+	float mermiuretmehizi = this->mermiuretmehiziMax;
+	bool mermihazir = false;
 	int Can = 3;
+	Vector2f fareGuncelKonum;
+	Vector2f fareTıklanmaKonum;
 	sf::Clock saat;
 	sf::Time cerceveSuresi;
 	sf::Time gecenSure;
@@ -26,6 +33,9 @@ class Uygulama
 	void dusmanuret();
 	void dusmanciz();
 	void dusmanguncelle();
+	void mermiuret();
+	void mermiciz();
+	void mermiguncelle();
 public:
 	Uygulama();
 	void insaEt(int genislik, int yukseklik);

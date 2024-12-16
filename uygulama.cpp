@@ -10,6 +10,7 @@ void Uygulama::cizimFonksiyonu()
 	pencere.temizle();
 	karakter.ciz(pencere);
 	dusmanciz();
+	mermiciz();
 	pencere.goster();
 }
 
@@ -44,11 +45,17 @@ void Uygulama::tusBirakildi(sf::Keyboard::Key tus)
 
 void Uygulama::fareHareket(sf::Event::MouseMoveEvent olay)
 {
-
+	fareGuncelKonum = Vector2f(olay.x, olay.y);
 }
 
 void Uygulama::fareTiklandi(sf::Event::MouseButtonEvent olay)
 {
+	cout << fareGuncelKonum.x << " " << fareGuncelKonum.y << endl;
+	if (mermihazir)
+	{
+		fareTıklanmaKonum = fareGuncelKonum;
+		mermiuret();
+	}
 }
 
 void Uygulama::karakterhasar()
@@ -122,6 +129,59 @@ void Uygulama::dusmanguncelle()
 	{
 		bool silindi = false;
 		dusmanlar[i].hareket(karakter.guncelkonum());
+		for (int j = 0; j < mermiler.size(); j++)
+		{
+			if (this->dusmanlar[i].getsekil().getGlobalBounds().intersects(mermiler[j].getsekil().getGlobalBounds()))
+			{
+				silindi = true;
+				dusmanlar.erase(dusmanlar.begin() + i);
+				mermiler.erase(mermiler.begin() + j);
+
+			}
+
+		}
+	}
+}
+
+void Uygulama::mermiuret()
+{
+	mermi.mermikonum(karakter.guncelkonum() + Vector2f(14, 14));
+	mermi.setbitiskonum(fareTıklanmaKonum);
+	mermiler.push_back(mermi);
+}
+
+void Uygulama::mermiciz()
+{
+	for (auto& m : mermiler) {
+		m.ciz(pencere);
+	}
+}
+
+void Uygulama::mermiguncelle()
+{
+	if (mermiuretmehizi >= mermiuretmehiziMax)
+	{
+		mermihazir = true;
+	}
+	else
+	{
+		mermihazir = false;
+		mermiuretmehizi += 1.f;
+	}
+	for (int i = 0; i < mermiler.size(); i++)
+	{
+		mermiler[i].mermiHareket(mermiler[i].getbitiskonum());
+
+		for (int j = 0; j < 20; j++)
+		{
+			for (int k = 0; k < 20; k++)
+			{
+				if (mermiler[i].mermiguncelkonum() == mermiler[i].getbitiskonum() + Vector2f(j, k))
+				{
+					mermiler.erase(mermiler.begin() + i);
+				}
+			}
+		}
 	}
 }
 
@@ -166,6 +226,7 @@ void Uygulama::baslat(int fps)
 			karakter.karakterKontrol();
 			karakterhasar();
 			dusmanguncelle();
+			mermiguncelle();
 			gecenSure = sf::seconds(0.0f);
 			saat.restart();
 		}
