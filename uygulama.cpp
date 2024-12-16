@@ -138,7 +138,33 @@ void Uygulama::dusmanguncelle()
 				mermiler.erase(mermiler.begin() + j);
 
 			}
+		}
+		FloatRect k1box = dusmanlar[i].getk1().getGlobalBounds();
+		FloatRect k2box = dusmanlar[i].getk2().getGlobalBounds();
+		FloatRect k3box = dusmanlar[i].getk3().getGlobalBounds();
+		FloatRect k4box = dusmanlar[i].getk4().getGlobalBounds();
+		for (auto m : dusmanlar) {
+			FloatRect dusmanbox = m.getsekil().getGlobalBounds();
+			if (k1box.intersects(dusmanbox) || k2box.intersects(dusmanbox) || k3box.intersects(dusmanbox) || k4box.intersects(dusmanbox))
+			{
+				if (k1box.intersects(dusmanbox))
+				{
+					dusmanlar[i].dusmanitis(YON::Asagi);
+				}
+				if (k3box.intersects(dusmanbox))
+				{
+					dusmanlar[i].dusmanitis(YON::Yukari);
+				}
+				if (k4box.intersects(dusmanbox))
+				{
+					dusmanlar[i].dusmanitis(YON::Sag);
+				}
+				if (k2box.intersects(dusmanbox))
+				{
+					dusmanlar[i].dusmanitis(YON::Sol);
+				}
 
+			}
 		}
 	}
 }

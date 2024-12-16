@@ -8,12 +8,29 @@ Dusman::Dusman()
     boyutAta(30);
     hizAta(2);
     dusmanUret();
+    k1.setSize(Vector2f(30, 5));
+    k2.setSize(Vector2f(5, 30));
+    k3.setSize(Vector2f(30, 5));
+    k4.setSize(Vector2f(5, 30));
+    k1.setFillColor(Color::Transparent);
+    k2.setFillColor(Color::Transparent);
+    k3.setFillColor(Color::Transparent);
+    k4.setFillColor(Color::Transparent);
 }
 
 void Dusman::ciz(Pencere& pencere)
 {
     sekil.setPosition(mkonum);
+    k1.setPosition(mkonum);
+    k2.setPosition(mkonum + Vector2f(30, 0));
+    k3.setPosition(mkonum + Vector2f(2, 30));
+    k4.setPosition(mkonum);
+
     pencere.ciz(sekil);
+    pencere.ciz(k1);
+    pencere.ciz(k2);
+    pencere.ciz(k3);
+    pencere.ciz(k4);
 }
 
 float Dusman::boyutgetir()
@@ -89,4 +106,45 @@ Vector2f Dusman::Dusmanyol(Vector2f& yol)
     float deger = std::sqrt(yol.x * yol.x + yol.y * yol.y);
     if (deger == 0) return sf::Vector2f(0.f, 0.f);
     return yol / deger;
+}
+
+RectangleShape Dusman::getk1()
+{
+    return k1;
+}
+
+RectangleShape Dusman::getk2()
+{
+    return k2;
+}
+
+RectangleShape Dusman::getk3()
+{
+    return k3;
+}
+
+RectangleShape Dusman::getk4()
+{
+    return k4;
+}
+
+void Dusman::dusmanitis(YON yon)
+{
+    switch (yon)
+    {
+    case YON::Yukari:
+        mkonum.y -= 1;
+        break;
+    case YON::Asagi:
+        mkonum.y += 1;
+        break;
+    case YON::Sag:
+        mkonum.x += 1;
+        break;
+    case YON::Sol:
+        mkonum.x -= 1;
+        break;
+    default:
+        break;
+    }
 }

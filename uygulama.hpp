@@ -12,7 +12,7 @@ class Uygulama
 	vector<Mermi> mermiler;
 	float dusmanuretmehiziMax = 50.f;
 	float dusmanuretmehizi = this->dusmanuretmehiziMax;
-	int maxDusman = 5;
+	int maxDusman = 15;
 	float mermiuretmehiziMax = 20.f;
 	float mermiuretmehizi = this->mermiuretmehiziMax;
 	bool mermihazir = true;
