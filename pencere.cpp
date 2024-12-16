@@ -33,6 +33,14 @@ void Pencere::olaylariisle()
 			for (auto siradaki : fareHareketFonklari)
 				siradaki(olay.mouseMove);
 		}
+		if (olay.type == Event::MouseButtonPressed)
+		{
+			if (olay.mouseButton.button == Mouse::Left)
+			{
+				for (auto siradaki : fareTiklamaFonklari)
+					siradaki(olay.mouseButton);
+			}
+		}
 	}
 }
 
