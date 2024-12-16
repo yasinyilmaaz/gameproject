@@ -50,11 +50,11 @@ void Uygulama::fareHareket(sf::Event::MouseMoveEvent olay)
 
 void Uygulama::fareTiklandi(sf::Event::MouseButtonEvent olay)
 {
-	cout << fareGuncelKonum.x << " " << fareGuncelKonum.y << endl;
 	if (mermihazir)
 	{
 		fareTıklanmaKonum = fareGuncelKonum;
 		mermiuret();
+		mermiuretmehizi = 0.f;
 	}
 }
 
@@ -147,6 +147,7 @@ void Uygulama::mermiuret()
 {
 	mermi.mermikonum(karakter.guncelkonum() + Vector2f(14, 14));
 	mermi.setbitiskonum(fareTıklanmaKonum);
+	mermi.setdusmanyol();
 	mermiler.push_back(mermi);
 }
 
@@ -171,17 +172,13 @@ void Uygulama::mermiguncelle()
 	for (int i = 0; i < mermiler.size(); i++)
 	{
 		mermiler[i].mermiHareket(mermiler[i].getbitiskonum());
-
-		for (int j = 0; j < 20; j++)
+		mermiler[i].mermikontrol();
+		if (mermiler[i].getmermiharitakonum())
 		{
-			for (int k = 0; k < 20; k++)
-			{
-				if (mermiler[i].mermiguncelkonum() == mermiler[i].getbitiskonum() + Vector2f(j, k))
-				{
-					mermiler.erase(mermiler.begin() + i);
-				}
-			}
+			mermiler.erase(mermiler.begin() + i);
+			cout << "mermi siindi" << endl;
 		}
+
 	}
 }
 
