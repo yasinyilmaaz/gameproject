@@ -13,9 +13,9 @@ class Uygulama
 	float dusmanuretmehiziMax = 50.f;
 	float dusmanuretmehizi = this->dusmanuretmehiziMax;
 	int maxDusman = 5;
-	float mermiuretmehiziMax = 50.f;
+	float mermiuretmehiziMax = 20.f;
 	float mermiuretmehizi = this->mermiuretmehiziMax;
-	bool mermihazir = false;
+	bool mermihazir = true;
 	int Can = 3;
 	Vector2f fareGuncelKonum;
 	Vector2f fareTıklanmaKonum;

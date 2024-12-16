@@ -5,6 +5,8 @@ class Mermi :public Cizilebilir {
 	float boyut;
 	float hiz;
 	Vector2f bitiskonum;
+	Vector2f dusmanyol;
+	bool mermiharitakonum = false;
 public:
 	Mermi();
 	void ciz(Pencere& pencere)override;
@@ -19,4 +21,7 @@ public:
 	Vector2f mermiguncelkonum();
 	void setbitiskonum(Vector2f bitis);
 	Vector2f getbitiskonum();
+	void setdusmanyol();
+	void mermikontrol();
+	bool getmermiharitakonum();
 };

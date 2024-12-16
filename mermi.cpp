@@ -43,8 +43,6 @@ RectangleShape Mermi::getsekil()
 
 void Mermi::mermiHareket(Vector2f hedef)
 {
-    Vector2f yol = hedef - mkonum;
-    sf::Vector2f dusmanyol = mermiyol(yol);
     mkonum += dusmanyol * hiz;
 }
 
@@ -73,4 +71,35 @@ void Mermi::setbitiskonum(Vector2f baslangic)
 Vector2f Mermi::getbitiskonum()
 {
     return bitiskonum;
+}
+
+void Mermi::setdusmanyol()
+{
+    Vector2f yol = bitiskonum - mkonum;
+    dusmanyol = mermiyol(yol);
+}
+
+void Mermi::mermikontrol()
+{
+    if (sekil.getPosition().y >= 720)
+    {
+        mermiharitakonum = true;
+    }
+    if (sekil.getPosition().y <= 0)
+    {
+        mermiharitakonum = true;
+    }
+    if (sekil.getPosition().x >= 1280)
+    {
+        mermiharitakonum = true;
+    }
+    if (sekil.getPosition().x <= 0)
+    {
+        mermiharitakonum = true;
+    }
+}
+
+bool Mermi::getmermiharitakonum()
+{
+    return mermiharitakonum;
 }
