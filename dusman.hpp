@@ -4,6 +4,10 @@
 
 class Dusman :public Cizilebilir {
 	RectangleShape sekil;
+	RectangleShape k1;//üst kenar
+	RectangleShape k2;//sag kenar
+	RectangleShape k3;//alt kenar
+	RectangleShape k4;//sol  kenar
 	float boyut;
 	float hiz;
 	unsigned int genislik = 1280;
@@ -20,4 +24,9 @@ public:
 	void ayarla(unsigned int yukseklik, unsigned int genislik);
 	RectangleShape getsekil();
 	Vector2f Dusmanyol(Vector2f& yol);
+	RectangleShape getk1();
+	RectangleShape getk2();
+	RectangleShape getk3();
+	RectangleShape getk4();
+	void dusmanitis(YON yon);
 };

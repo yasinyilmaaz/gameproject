@@ -85,15 +85,6 @@ void Uygulama::karakterhasar()
 				karakter.karakteritis(YON::Sol);
 			}
 			Can--;
-			if (Can == 2) {
-				karakter.renkayarla(Color::Blue);
-			}
-			else if (Can == 1) {
-				karakter.renkayarla(Color::Black);
-			}
-			else if (Can <= 0) {
-				cout << Can << endl;
-			}
 		}
 	}
 }
@@ -136,9 +127,43 @@ void Uygulama::dusmanguncelle()
 				silindi = true;
 				dusmanlar.erase(dusmanlar.begin() + i);
 				mermiler.erase(mermiler.begin() + j);
+				YokEdilenD++;
+				dusmanarttırma++;
+				if (Can < 3 && YokEdilenD>3)
+				{
+					Can++;
+					YokEdilenD = 0;
+
+				}
 
 			}
+		}
+		FloatRect k1box = dusmanlar[i].getk1().getGlobalBounds();
+		FloatRect k2box = dusmanlar[i].getk2().getGlobalBounds();
+		FloatRect k3box = dusmanlar[i].getk3().getGlobalBounds();
+		FloatRect k4box = dusmanlar[i].getk4().getGlobalBounds();
+		for (auto m : dusmanlar) {
+			FloatRect dusmanbox = m.getsekil().getGlobalBounds();
+			if (k1box.intersects(dusmanbox) || k2box.intersects(dusmanbox) || k3box.intersects(dusmanbox) || k4box.intersects(dusmanbox))
+			{
+				if (k1box.intersects(dusmanbox))
+				{
+					dusmanlar[i].dusmanitis(YON::Asagi);
+				}
+				if (k3box.intersects(dusmanbox))
+				{
+					dusmanlar[i].dusmanitis(YON::Yukari);
+				}
+				if (k4box.intersects(dusmanbox))
+				{
+					dusmanlar[i].dusmanitis(YON::Sag);
+				}
+				if (k2box.intersects(dusmanbox))
+				{
+					dusmanlar[i].dusmanitis(YON::Sol);
+				}
 
+			}
 		}
 	}
 }
@@ -179,6 +204,31 @@ void Uygulama::mermiguncelle()
 			cout << "mermi siindi" << endl;
 		}
 
+	}
+}
+
+void Uygulama::canKontrol()
+{
+	if (Can == 3)
+	{
+		karakter.renkayarla(Color::Green);
+	}
+	else if (Can == 2) {
+		karakter.renkayarla(Color::Blue);
+	}
+	else if (Can == 1) {
+		karakter.renkayarla(Color::Black);
+	}
+
+}
+
+void Uygulama::maxDusmanArttırma()
+{
+	if (dusmanarttırma >= 5 && maxDusman < 20)
+	{
+		maxDusman += 1;
+		dusmanarttırma = 0;
+		cout << maxDusman << " " << endl;
 	}
 }
 
@@ -224,6 +274,9 @@ void Uygulama::baslat(int fps)
 			karakterhasar();
 			dusmanguncelle();
 			mermiguncelle();
+			canKontrol();
+			maxDusmanArttırma();
+
 			gecenSure = sf::seconds(0.0f);
 			saat.restart();
 		}

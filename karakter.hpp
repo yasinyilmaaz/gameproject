@@ -1,7 +1,6 @@
 #pragma once
 #include "Cizilebilir.hpp"
 #include <iostream>
-enum class YON { Yukari, Asagi, Sag, Sol, Dur };
 
 class Karakter :public Cizilebilir {
 private:
