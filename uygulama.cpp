@@ -85,15 +85,6 @@ void Uygulama::karakterhasar()
 				karakter.karakteritis(YON::Sol);
 			}
 			Can--;
-			if (Can == 2) {
-				karakter.renkayarla(Color::Blue);
-			}
-			else if (Can == 1) {
-				karakter.renkayarla(Color::Black);
-			}
-			else if (Can <= 0) {
-				cout << Can << endl;
-			}
 		}
 	}
 }
@@ -136,6 +127,14 @@ void Uygulama::dusmanguncelle()
 				silindi = true;
 				dusmanlar.erase(dusmanlar.begin() + i);
 				mermiler.erase(mermiler.begin() + j);
+				YokEdilenD++;
+				dusmanarttırma++;
+				if (Can < 3 && YokEdilenD>3)
+				{
+					Can++;
+					YokEdilenD = 0;
+
+				}
 
 			}
 		}
@@ -208,6 +207,31 @@ void Uygulama::mermiguncelle()
 	}
 }
 
+void Uygulama::canKontrol()
+{
+	if (Can == 3)
+	{
+		karakter.renkayarla(Color::Green);
+	}
+	else if (Can == 2) {
+		karakter.renkayarla(Color::Blue);
+	}
+	else if (Can == 1) {
+		karakter.renkayarla(Color::Black);
+	}
+
+}
+
+void Uygulama::maxDusmanArttırma()
+{
+	if (dusmanarttırma >= 5 && maxDusman < 20)
+	{
+		maxDusman += 1;
+		dusmanarttırma = 0;
+		cout << maxDusman << " " << endl;
+	}
+}
+
 Uygulama::Uygulama()
 {
 }
@@ -250,6 +274,9 @@ void Uygulama::baslat(int fps)
 			karakterhasar();
 			dusmanguncelle();
 			mermiguncelle();
+			canKontrol();
+			maxDusmanArttırma();
+
 			gecenSure = sf::seconds(0.0f);
 			saat.restart();
 		}
