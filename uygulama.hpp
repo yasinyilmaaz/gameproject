@@ -14,6 +14,7 @@ class Uygulama
 	float dusmanuretmehizi = this->dusmanuretmehiziMax;
 	int maxDusman = 10;
 	int dusmanarttırma = 0;
+	int DusmanCan = 1;
 	float mermiuretmehiziMax = 20.f;
 	float mermiuretmehizi = this->mermiuretmehiziMax;
 	bool mermihazir = true;

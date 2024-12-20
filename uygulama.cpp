@@ -91,6 +91,7 @@ void Uygulama::karakterhasar()
 
 void Uygulama::dusmanuret()
 {
+	dusman.Canata(DusmanCan);
 	dusman.dusmanUret();
 	dusmanlar.push_back(dusman);
 }
@@ -125,10 +126,14 @@ void Uygulama::dusmanguncelle()
 			if (this->dusmanlar[i].getsekil().getGlobalBounds().intersects(mermiler[j].getsekil().getGlobalBounds()))
 			{
 				silindi = true;
-				dusmanlar.erase(dusmanlar.begin() + i);
 				mermiler.erase(mermiler.begin() + j);
-				YokEdilenD++;
-				dusmanarttırma++;
+				dusmanlar[i].Canata(dusmanlar[i].Cangetir() - 1);
+				if (dusmanlar[i].Cangetir() < 1)
+				{
+					dusmanlar.erase(dusmanlar.begin() + i);
+					YokEdilenD++;
+					dusmanarttırma++;
+				}
 				if (Can < 3 && YokEdilenD>3)
 				{
 					Can++;
@@ -228,6 +233,14 @@ void Uygulama::maxDusmanArttırma()
 	{
 		maxDusman += 1;
 		dusmanarttırma = 0;
+		cout << maxDusman << " " << endl;
+	}
+	else if (dusmanarttırma >= 5 && maxDusman >= 20)
+	{
+		DusmanCan++;
+		dusmanarttırma = 0;
+		maxDusman = 10;
+		cout << DusmanCan << " " << endl;
 		cout << maxDusman << " " << endl;
 	}
 }
