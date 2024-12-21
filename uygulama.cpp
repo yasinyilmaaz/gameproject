@@ -52,7 +52,7 @@ void Uygulama::fareTiklandi(sf::Event::MouseButtonEvent olay)
 {
 	if (mermihazir)
 	{
-		fareTıklanmaKonum = fareGuncelKonum;
+		fareTiklanmaKonum = fareGuncelKonum;
 		mermiuret();
 		mermiuretmehizi = 0.f;
 	}
@@ -128,7 +128,7 @@ void Uygulama::dusmanguncelle()
 				dusmanlar.erase(dusmanlar.begin() + i);
 				mermiler.erase(mermiler.begin() + j);
 				YokEdilenD++;
-				dusmanarttırma++;
+				dusmanarttirma++;
 				if (Can < 3 && YokEdilenD>3)
 				{
 					Can++;
@@ -171,7 +171,7 @@ void Uygulama::dusmanguncelle()
 void Uygulama::mermiuret()
 {
 	mermi.mermikonum(karakter.guncelkonum() + Vector2f(14, 14));
-	mermi.setbitiskonum(fareTıklanmaKonum);
+	mermi.setbitiskonum(fareTiklanmaKonum);
 	mermi.setdusmanyol();
 	mermiler.push_back(mermi);
 }
@@ -222,12 +222,12 @@ void Uygulama::canKontrol()
 
 }
 
-void Uygulama::maxDusmanArttırma()
+void Uygulama::maxDusmanArttirma()
 {
-	if (dusmanarttırma >= 5 && maxDusman < 20)
+	if (dusmanarttirma >= 5 && maxDusman < 20)
 	{
 		maxDusman += 1;
-		dusmanarttırma = 0;
+		dusmanarttirma = 0;
 		cout << maxDusman << " " << endl;
 	}
 }
@@ -275,7 +275,7 @@ void Uygulama::baslat(int fps)
 			dusmanguncelle();
 			mermiguncelle();
 			canKontrol();
-			maxDusmanArttırma();
+			maxDusmanArttirma();
 
 			gecenSure = sf::seconds(0.0f);
 			saat.restart();
