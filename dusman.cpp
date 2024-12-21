@@ -7,6 +7,7 @@ Dusman::Dusman()
     sekil.setOutlineThickness(2);
     boyutAta(30);
     hizAta(2);
+    Canata(1);
     dusmanUret();
     k1.setSize(Vector2f(30, 5));
     k2.setSize(Vector2f(5, 30));
@@ -52,6 +53,16 @@ float Dusman::hizgetir()
 void Dusman::hizAta(float hiz)
 {
     this->hiz = hiz;
+}
+
+int Dusman::Cangetir()
+{
+    return Can;
+}
+
+void Dusman::Canata(int can)
+{
+    Can = can;
 }
 
 void Dusman::hareket(Vector2f hedef)

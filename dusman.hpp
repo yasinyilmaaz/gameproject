@@ -10,6 +10,7 @@ class Dusman :public Cizilebilir {
 	RectangleShape k4;//sol  kenar
 	float boyut;
 	float hiz;
+	int Can;
 	unsigned int genislik = 1280;
 	unsigned int yukseklik = 720;
 public:
@@ -19,6 +20,8 @@ public:
 	void boyutAta(float boyut);
 	float hizgetir();
 	void hizAta(float hiz);
+	int Cangetir();
+	void Canata(int can);
 	void hareket(Vector2f hedef);
 	void dusmanUret();
 	void ayarla(unsigned int yukseklik, unsigned int genislik);
