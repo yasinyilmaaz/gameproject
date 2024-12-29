@@ -13,7 +13,7 @@ class Uygulama
 	float dusmanuretmehiziMax = 20.f;
 	float dusmanuretmehizi = this->dusmanuretmehiziMax;
 	int maxDusman = 10;
-	int dusmanarttırma = 0;
+	int dusmanarttirma = 0;
 	int DusmanCan = 1;
 	float mermiuretmehiziMax = 20.f;
 	float mermiuretmehizi = this->mermiuretmehiziMax;
@@ -21,7 +21,7 @@ class Uygulama
 	int Can = 3;
 	int YokEdilenD = 0;
 	Vector2f fareGuncelKonum;
-	Vector2f fareTıklanmaKonum;
+	Vector2f fareTiklanmaKonum;
 	sf::Clock saat;
 	sf::Time cerceveSuresi;
 	sf::Time gecenSure;
@@ -40,7 +40,7 @@ class Uygulama
 	void mermiciz();
 	void mermiguncelle();
 	void canKontrol();
-	void maxDusmanArttırma();
+	void maxDusmanArttirma();
 public:
 	Uygulama();
 	void insaEt(int genislik, int yukseklik);
