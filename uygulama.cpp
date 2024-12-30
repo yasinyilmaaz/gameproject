@@ -85,6 +85,8 @@ void Uygulama::karakterhasar()
 				karakter.karakteritis(YON::Sol);
 			}
 			Can--;
+			puan = puan - 50;
+			konsolarayüz();
 		}
 	}
 }
@@ -119,13 +121,13 @@ void Uygulama::dusmanguncelle()
 	}
 	for (int i = 0; i < dusmanlar.size(); i++)
 	{
-		bool silindi = false;
 		dusmanlar[i].hareket(karakter.guncelkonum());
 		for (int j = 0; j < mermiler.size(); j++)
 		{
 			if (this->dusmanlar[i].getsekil().getGlobalBounds().intersects(mermiler[j].getsekil().getGlobalBounds()))
 			{
-				silindi = true;
+				puan = puan + 10;
+				konsolarayüz();
 				mermiler.erase(mermiler.begin() + j);
 				dusmanlar[i].Canata(dusmanlar[i].Cangetir() - 1);
 				if (dusmanlar[i].Cangetir() < 1)
@@ -138,7 +140,6 @@ void Uygulama::dusmanguncelle()
 				{
 					Can++;
 					YokEdilenD = 0;
-
 				}
 
 			}
@@ -206,7 +207,6 @@ void Uygulama::mermiguncelle()
 		if (mermiler[i].getmermiharitakonum())
 		{
 			mermiler.erase(mermiler.begin() + i);
-			cout << "mermi siindi" << endl;
 		}
 
 	}
@@ -225,6 +225,7 @@ void Uygulama::canKontrol()
 		karakter.renkayarla(Color::Black);
 	}
 
+
 }
 
 void Uygulama::maxDusmanArttirma()
@@ -233,15 +234,30 @@ void Uygulama::maxDusmanArttirma()
 	{
 		maxDusman += 1;
 		dusmanarttirma = 0;
-		cout << maxDusman << " " << endl;
 	}
 	else if (dusmanarttirma >= 5 && maxDusman >= 20)
 	{
 		DusmanCan++;
 		dusmanarttirma = 0;
 		maxDusman = 10;
-		cout << DusmanCan << " " << endl;
-		cout << maxDusman << " " << endl;
+	}
+}
+
+void Uygulama::konsolarayüz()
+{
+	system("cls");
+	cout << "Skor:" << puan << endl;
+	cout << "Maksimum Düþman:" << maxDusman << endl;
+	cout << "Düþman Caný:" << DusmanCan << endl;
+	if (Can <= 0)
+	{
+		pencere.pencerekapat();
+		system("cls");
+		cout << "Oldunuz..." << endl;
+		cout << "Skorunuz:" << puan << endl;
+		Uygulama uygulama;
+		uygulama.insaEt(1280, 720);
+		uygulama.baslat();
 	}
 }
 
@@ -274,6 +290,7 @@ void Uygulama::baslat(int fps)
 
 	gecenSure = saat.restart();
 	karakter.yonAta(YON::Dur);
+	konsolarayüz();
 	while (pencere.pencereAcikmi())
 	{
 		pencere.olaylariisle();
@@ -289,7 +306,6 @@ void Uygulama::baslat(int fps)
 			mermiguncelle();
 			canKontrol();
 			maxDusmanArttirma();
-
 			gecenSure = sf::seconds(0.0f);
 			saat.restart();
 		}

@@ -15,6 +15,7 @@ public:
 		unsigned int yukseklik = 720, const sf::String& ad = "SFML");
 	void ciz(Drawable& sekil);
 	void olaylariisle();
+	void olaylariisleMenu();
 	bool pencereAcikmi();
 	void pencerekapat();
 	void temizle();

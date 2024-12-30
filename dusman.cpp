@@ -2,14 +2,14 @@
 
 Dusman::Dusman()
 {
-    sekil.setFillColor(Color::Red);
-    sekil.setOutlineColor(Color::Black);
-    sekil.setOutlineThickness(2);
-    boyutAta(30);
-    hizAta(2);
-    Canata(1);
+    sekil.setFillColor(Color::Red);//baþlangýç rengi
+    sekil.setOutlineColor(Color::Black);//dýþ kenar rengi
+    sekil.setOutlineThickness(2);//kenar kalýnlýðý
+    boyutAta(30);//düþman boyut atamasý
+    hizAta(2);//düþman hýz atamasý
+    Canata(1);//düþman caný
     dusmanUret();
-    k1.setSize(Vector2f(30, 5));
+    k1.setSize(Vector2f(30, 5));//düþman çarpýþma kenarlarýnýn atanmasý
     k2.setSize(Vector2f(5, 30));
     k3.setSize(Vector2f(30, 5));
     k4.setSize(Vector2f(5, 30));
@@ -21,13 +21,13 @@ Dusman::Dusman()
 
 void Dusman::ciz(Pencere& pencere)
 {
-    sekil.setPosition(mkonum);
+    sekil.setPosition(mkonum);//düþman ve çarpýþma kenarlarýnýn baþlangýç konumu
     k1.setPosition(mkonum);
     k2.setPosition(mkonum + Vector2f(30, 0));
     k3.setPosition(mkonum + Vector2f(2, 30));
     k4.setPosition(mkonum);
 
-    pencere.ciz(sekil);
+    pencere.ciz(sekil);//düþmanýn ve çarpýþma kenarlarýnýn çizimi
     pencere.ciz(k1);
     pencere.ciz(k2);
     pencere.ciz(k3);
@@ -42,7 +42,7 @@ float Dusman::boyutgetir()
 void Dusman::boyutAta(float boyut)
 {
     this->boyut = boyut;
-    sekil.setSize(Vector2f(boyut, boyut));
+    sekil.setSize(Vector2f(boyut, boyut));//aldýðýmýz boyutu boyut*boyut'luk kare olacak þekilde atýyoruz
 }
 
 float Dusman::hizgetir()
@@ -67,38 +67,49 @@ void Dusman::Canata(int can)
 
 void Dusman::hareket(Vector2f hedef)
 {
-    Vector2f yol = hedef - mkonum;
-    sf::Vector2f dusmanyol = Dusmanyol(yol);
-    mkonum += dusmanyol * hiz;
+    Vector2f yol = hedef - mkonum;//düþman ile karakterin mevcut konumu arasýndaki uzaklýðý vektörel olarak hesaplama
+    sf::Vector2f dusmanyol = Dusmanyol(yol);//bu hesapladaýðýmýz mesafeyi birim vektöre çevirme
+    mkonum += dusmanyol * hiz;//düþmanýn birim vektöre göre hareketi
 }
 
 void Dusman::dusmanUret()
 {
-    int a, b;
-    srand(time(0));
-    if (rand() % 2 == 0) {
-        a = 360; b = 600;
-        if (rand() % yukseklik < 360)
-        {
-            a = 720;
-        }if (rand() % genislik < 600)
-        {
-            a = 1280;
-        }
+    int x = 0, y = 0;
+
+    // Rastgele bir kenar seçiyoruz (üst, alt, sol veya sað)
+    int kenar = rand() % 4;
+
+    switch (kenar) {
+    case 0: // Üst (oyun alanýnýn üstünde)
+        x = rand() % genislik;
+        y = -50;
+        break;
+
+    case 1: // Alt (oyun alanýnýn altýnda)
+        x = rand() % genislik;
+        y = yukseklik + 50;
+        break;
+
+    case 2: // Sol (oyun alanýnýn solunda)
+        x = -50;
+        y = rand() % yukseklik;
+        break;
+
+    case 3: // Sað (oyun alanýnýn saðýnda)
+        x = genislik + 50;
+        y = rand() % yukseklik;
+        break;
+
+    default:
+        break;
+    }
+
+    if ((x < 0 || x >= genislik) || (y < 0 || y >= yukseklik)) {
+        mkonum = Vector2f(x, y);
     }
     else {
-        a = -360; b = -600;
-        if (rand() % yukseklik > 360)
-        {
-            a = -720;
-        }if (rand() % genislik > 600)
-        {
-            a = -1280;
-        }
+        dusmanUret();
     }
-    int x = (rand() % yukseklik + a);
-    int y = (rand() % genislik + b);
-    mkonum = Vector2f(y, x);
 }
 
 void Dusman::ayarla(unsigned int yukseklik, unsigned int genislik)
@@ -114,7 +125,7 @@ RectangleShape Dusman::getsekil()
 
 Vector2f Dusman::Dusmanyol(Vector2f& yol)
 {
-    float deger = std::sqrt(yol.x * yol.x + yol.y * yol.y);
+    float deger = std::sqrt(yol.x * yol.x + yol.y * yol.y);//birim vektör oluþturma formulü ile düþman ile karakter arasýndaki yolu birim vektöre döküyoruz
     if (deger == 0) return sf::Vector2f(0.f, 0.f);
     return yol / deger;
 }
@@ -141,7 +152,7 @@ RectangleShape Dusman::getk4()
 
 void Dusman::dusmanitis(YON yon)
 {
-    switch (yon)
+    switch (yon)//düþmanlar birbirine çarparsa çarptýklarý yöne göre birbirini itecek
     {
     case YON::Yukari:
         mkonum.y -= 1;

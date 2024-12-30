@@ -20,6 +20,7 @@ class Uygulama
 	bool mermihazir = true;
 	int Can = 3;
 	int YokEdilenD = 0;
+	int puan = 0;
 	Vector2f fareGuncelKonum;
 	Vector2f fareTiklanmaKonum;
 	sf::Clock saat;
@@ -41,6 +42,7 @@ class Uygulama
 	void mermiguncelle();
 	void canKontrol();
 	void maxDusmanArttirma();
+	void konsolarayüz();
 public:
 	Uygulama();
 	void insaEt(int genislik, int yukseklik);
