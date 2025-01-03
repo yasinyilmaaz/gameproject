@@ -15,20 +15,22 @@ private:
 public:
 	Karakter();
 	void ciz(Pencere& pencere)override;
-	void yonAta(YON yon);
-	YON yonGetir();
-	float boyutgetir();
-	void boyutAta(float boyut);
-	float hizgetir();
-	void hizAta(float hiz);
-	void hareket();
-	void karakterKontrol();
-	void renkayarla(Color renk);
+	void yonAta(YON yon); // karakterin yönünü belirler
+	YON yonGetir(); // karakterin yönünü döndürür
+	float boyutgetir(); // karakterin boyutunu döndürür
+	void boyutAta(float boyut); // karakterin boyutunu değiştirir
+	float hizgetir(); // karakterin hızını döndürür
+	void hizAta(float hiz); // karakterin hızını değiştirir
+	void hareket(); // karakterin haraket yönünü belirler
+	void karakterKontrol(); // karakterin kontrolünü sağlar
+	void renkayarla(Color renk); // karakterin rengini belirler
+	// şekil döndürme fonksiyonları 
 	RectangleShape getsekil();
 	RectangleShape getk1();
 	RectangleShape getk2();
 	RectangleShape getk3();
 	RectangleShape getk4();
+	// karakterin hareket yönünü belirleme
 	void karakteritis(YON yon);
 	Vector2f guncelkonum();
 };

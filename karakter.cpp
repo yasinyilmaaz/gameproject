@@ -1,5 +1,7 @@
 #include "karakter.hpp"
 
+
+// Karakter sýnýfý yapýcý fonksiyonu = karakter rengini , boyutunu ayarlar ve karakterin hareket hýzýný belirler ve karakterin parçalarýný oluþturur
 Karakter::Karakter()
 {
     sekil.setFillColor(Color::Green);
@@ -17,6 +19,7 @@ Karakter::Karakter()
     k4.setFillColor(Color::Transparent);
 }
 
+// Karakter çizme fonksiyonu = karakter þeklini çizer
 void Karakter::ciz(Pencere& pencere)
 {
     sekil.setPosition(mkonum + Vector2f(640, 360));
@@ -32,37 +35,47 @@ void Karakter::ciz(Pencere& pencere)
     pencere.ciz(k4);
 }
 
+
+// karakterin yönünü belirler
 void Karakter::yonAta(YON yon)
 {
     karakteryon = yon;
 }
 
+
+// karakterin yönünü döndürür
 YON Karakter::yonGetir()
 {
     return karakteryon;
 }
 
+
+// karakterin boyutunu döndürür
 float Karakter::boyutgetir()
 {
     return boyut;
 }
 
+// karakterin boyutunu deðiþtirir
 void Karakter::boyutAta(float boyut)
 {
-    this->boyut = boyut;
-    sekil.setSize(Vector2f(boyut, boyut));
+	this->boyut = boyut; // global boyutu deðiþtirir
+	sekil.setSize(Vector2f(boyut, boyut)); // karakterin boyutunu deðiþtirir
 }
 
+// karakterin hýzýný döndürür
 float Karakter::hizgetir()
 {
     return hiz;
 }
 
+// karakterin hýzýný deðiþtirir
 void Karakter::hizAta(float hiz)
 {
     this->hiz = hiz;
 }
 
+// karakterin haraket yönünü belirler
 void Karakter::hareket()
 {
     switch (karakteryon)
@@ -84,6 +97,7 @@ void Karakter::hareket()
     }
 }
 
+// karakterin yönüne göre haraketini belirler
 void Karakter::karakterKontrol()
 {
     if (sekil.getPosition().y >= 690)
@@ -104,38 +118,45 @@ void Karakter::karakterKontrol()
     }
 }
 
+// karakterin rengini belirler
 void Karakter::renkayarla(Color renk)
 {
     sekil.setFillColor(renk);
 }
 
+// karakterin þeklini döndürür
 RectangleShape Karakter::getsekil()
 {
     return sekil;
 }
 
+// karakterin  üst parçalarýný döndürür
 RectangleShape Karakter::getk1()
 {
-    return k1;
+	return k1; // k1 parçasýný döndürür
 }
 
+// karakterin sað parçalarýný döndürür
 RectangleShape Karakter::getk2()
 {
     return k2;
 }
-
+// karakterin alt parçalarýný döndürür
 RectangleShape Karakter::getk3()
 {
     return k3;
 }
 
+// karakterin sol parçalarýný döndürür
 RectangleShape Karakter::getk4()
 {
     return k4;
 }
 
+// karakterin hareket yönünü belirler
 void Karakter::karakteritis(YON yon)
 {
+    
     switch (yon)
     {
     case YON::Yukari:
@@ -157,9 +178,9 @@ void Karakter::karakteritis(YON yon)
     default:
         break;
     }
-
 }
 
+// karakterin son konumunu döndürür
 Vector2f Karakter::guncelkonum()
 {
     Vector2f gkonum = sekil.getPosition();

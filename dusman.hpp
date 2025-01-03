@@ -1,6 +1,13 @@
 #include "Cizilebilir.hpp"
 #include <time.h>
 #include <cmath>
+#include <SFML/Graphics/Color.hpp>
+
+/*
+	Dusman sını
+		Dusman sınıfı düşman oluşturur ve düşmanın hareketini sağlar ve düşmanın çizimini yapar
+
+*/
 
 class Dusman :public Cizilebilir {
 	RectangleShape sekil;
@@ -10,6 +17,7 @@ class Dusman :public Cizilebilir {
 	RectangleShape k4;//sol  kenar
 	float boyut;
 	float hiz;
+	sf::Color renk = sf::Color::Red;
 	int Can;
 	unsigned int genislik = 1280;
 	unsigned int yukseklik = 720;

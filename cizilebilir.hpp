@@ -1,6 +1,12 @@
 #pragma once
 #include<SFML/Graphics.hpp>
 #include "pencere.hpp"
+
+/*
+	Cizilebilir sýnýfý
+		çizilebilir sýnýfý þekillerin çizilmesi için kullanýlýr
+*/
+
 using namespace sf;
 enum class YON { Yukari, Asagi, Sag, Sol, Dur };
 

@@ -1,18 +1,22 @@
 #include "dusman.hpp"
-
+#include <iostream>
 Dusman::Dusman()
 {
-    sekil.setFillColor(Color::Red);//baþlangýç rengi
+    sekil.setFillColor(renk);//baþlangýç rengi
     sekil.setOutlineColor(Color::Black);//dýþ kenar rengi
     sekil.setOutlineThickness(2);//kenar kalýnlýðý
     boyutAta(30);//düþman boyut atamasý
-    hizAta(2);//düþman hýz atamasý
+    hizAta(1.5);//düþman hýz atamasý
     Canata(1);//düþman caný
     dusmanUret();
+
+	// çarpýþma kenarlarýnýn boyutlarý
     k1.setSize(Vector2f(30, 5));//düþman çarpýþma kenarlarýnýn atanmasý
     k2.setSize(Vector2f(5, 30));
     k3.setSize(Vector2f(30, 5));
     k4.setSize(Vector2f(5, 30));
+
+	// çarpýþma kenarlarýnýn rengi
     k1.setFillColor(Color::Transparent);
     k2.setFillColor(Color::Transparent);
     k3.setFillColor(Color::Transparent);
@@ -123,11 +127,19 @@ RectangleShape Dusman::getsekil()
     return sekil;
 }
 
+// Düþmanýn hareket yönünü belirler (birim vektör) ve döndürür
 Vector2f Dusman::Dusmanyol(Vector2f& yol)
 {
-    float deger = std::sqrt(yol.x * yol.x + yol.y * yol.y);//birim vektör oluþturma formulü ile düþman ile karakter arasýndaki yolu birim vektöre döküyoruz
-    if (deger == 0) return sf::Vector2f(0.f, 0.f);
-    return yol / deger;
+    try {
+		float uzunluk = sqrt(yol.x * yol.x + yol.y * yol.y);
+		if (uzunluk == 0)
+			throw "Düþman yol hesaplanamadý";
+		return Vector2f(yol.x / uzunluk, yol.y / uzunluk);
+	}
+    catch (const char* hata)
+    {
+        cout << hata << endl;
+    }
 }
 
 RectangleShape Dusman::getk1()

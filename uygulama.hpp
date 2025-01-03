@@ -2,6 +2,16 @@
 #include "Pencere.hpp"
 #include "karakter.hpp"
 #include "mermi.hpp"
+#include <SFML/Graphics.hpp>
+#include <string>
+
+/*
+ Uygulama sýnýfý
+	bu class oyunun ana sýnýfýdýr
+	oyunun baþlatýlmasý, oyunun çizilmesi, oyunun güncellenmesi, oyunun kapatýlmasý menü sayfasý açýlmasý gibi iþlemleri yapar
+	dusmanlarin hareketi, dusmanlarin uretilmesi, dusmanlarin carpismasi, 
+	
+*/
 
 class Uygulama
 {
@@ -16,6 +26,7 @@ class Uygulama
 	int maxDusman = 10;
 	int dusmanarttirma = 0;
 	int DusmanCan = 1;
+	sf::Color renk = sf::Color::Red;
 	float mermiuretmehiziMax = 20.f;
 	float mermiuretmehizi = this->mermiuretmehiziMax;
 	bool mermihazir = true;
@@ -28,25 +39,38 @@ class Uygulama
 	sf::Clock saat;
 	sf::Time cerceveSuresi;
 	sf::Time gecenSure;
+	// Oyunun baþlatýlmasý
 	void cerceveOlustur();
 	void cizimFonksiyonu();
 	void sahneGuncelle();
+	// klavye ve mause olaylar,
 	void tusBasildi(sf::Keyboard::Key tus);
 	void tusBirakildi(sf::Keyboard::Key tus);
 	void fareHareket(sf::Event::MouseMoveEvent olay);
 	void fareTiklandi(sf::Event::MouseButtonEvent olay);
-	void karakterhasar();
+	// Düþmanlar 
 	void dusmanuret();
 	void dusmanciz();
-	void dusmanguncelle();
+	void dusmanGuncelle();
+	void dusmanEkle();
+	void dusmanlariHareketEttir();
+	void dusmanCarpismalariniKontrolEt();
+	void dusmanMermiCarpismaKontrol(size_t dusmanIndex);
+	void dusmanDusmanCarpismaKontrol(size_t dusmanIndex);
+	void maxDusmanArttirma();
+	// Mermi 
 	void mermiuret();
 	void mermiciz();
 	void mermiguncelle();
+	// Can kontrol
 	void canKontrol();
-	void maxDusmanArttirma();
+	void karakterhasar();
+	// Oyun bittiðinde ekranda buton ve skor gösterme
 	void ekrandaButonVeSkorGoster();
 	void tiklamaKontrol(sf::RectangleShape& buton, sf::Vector2f farePozisyonu, int olay);
 	void hoverKontrol(sf::RectangleShape& buton, sf::Vector2f farePozisyonu);
+	sf::Text createText(const std::string& text, const sf::Font& font, int size, const sf::Color& color, float x, float y);
+	sf::RectangleShape createButton(float width, float height, const sf::Color& color, float x, float y);
 
 public:
 	Uygulama();
