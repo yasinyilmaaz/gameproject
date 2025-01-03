@@ -5,17 +5,17 @@ using namespace sf;
 using namespace std;
 class Pencere {
 private:
-	RenderWindow mpencere;
 	KlavyeFonksiyonlari tusaBasFonklari;
 	KlavyeFonksiyonlari tusubirakFonklari;
 	FareHareketFonklari fareHareketFonklari;
 	FareTiklamaFonklari fareTiklamaFonklari;
+	sf::RenderWindow mpencere;
 public:
 	void olustur(unsigned int genislik = 1280,
 		unsigned int yukseklik = 720, const sf::String& ad = "SFML");
 	void ciz(Drawable& sekil);
+	
 	void olaylariisle();
-	void olaylariisleMenu();
 	bool pencereAcikmi();
 	void pencerekapat();
 	void temizle();
@@ -24,4 +24,5 @@ public:
 	void tusubirakfonkekle(KlavyeFonksiyonu fonk);
 	void farehareketfonkekle(FareHareketFonk fonk);
 	void faretiklamafonkekle(FareTiklamaFonk fonk);
+	sf::RenderWindow& getRenderWindow();
 };

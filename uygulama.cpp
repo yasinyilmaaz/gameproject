@@ -1,4 +1,5 @@
 #include "uygulama.hpp"
+#include <iostream>
 void Uygulama::cerceveOlustur()
 {
 	sahneGuncelle();
@@ -86,7 +87,7 @@ void Uygulama::karakterhasar()
 			}
 			Can--;
 			puan = puan - 50;
-			konsolarayüz();
+			
 		}
 	}
 }
@@ -127,7 +128,7 @@ void Uygulama::dusmanguncelle()
 			if (this->dusmanlar[i].getsekil().getGlobalBounds().intersects(mermiler[j].getsekil().getGlobalBounds()))
 			{
 				puan = puan + 10;
-				konsolarayüz();
+				
 				mermiler.erase(mermiler.begin() + j);
 				dusmanlar[i].Canata(dusmanlar[i].Cangetir() - 1);
 				if (dusmanlar[i].Cangetir() < 1)
@@ -243,23 +244,7 @@ void Uygulama::maxDusmanArttirma()
 	}
 }
 
-void Uygulama::konsolarayüz()
-{
-	system("cls");
-	cout << "Skor:" << puan << endl;
-	cout << "Maksimum Düþman:" << maxDusman << endl;
-	cout << "Düþman Caný:" << DusmanCan << endl;
-	if (Can <= 0)
-	{
-		pencere.pencerekapat();
-		system("cls");
-		cout << "Oldunuz..." << endl;
-		cout << "Skorunuz:" << puan << endl;
-		Uygulama uygulama;
-		uygulama.insaEt(1280, 720);
-		uygulama.baslat();
-	}
-}
+
 
 Uygulama::Uygulama()
 {
@@ -283,31 +268,139 @@ void Uygulama::insaEt(int genislik, int yukseklik)
 	);
 }
 
+
+
+void Uygulama::hoverKontrol(sf::RectangleShape& buton, sf::Vector2f farePozisyonu)
+{
+	if (buton.getGlobalBounds().contains(farePozisyonu)) {
+		// Fare butonun üzerine gelirse, butonun rengini deðiþtir
+		buton.setFillColor(sf::Color::Yellow);  // Örneðin, hover olunca sarý yapalým
+	}
+	else {
+		// Fare butonun üzerinden ayrýldýðýnda, eski rengine geri dön
+		buton.setFillColor(sf::Color::Green);  // Normalde yeþil
+	}
+}
+
+void Uygulama::tiklamaKontrol(sf::RectangleShape& buton, sf::Vector2f farePozisyonu, int olay)
+{
+
+	// "Tekrar Oyna" butonuna týklama kontrolü
+	if (buton.getGlobalBounds().contains(farePozisyonu) &&
+		sf::Mouse::isButtonPressed(sf::Mouse::Left) && olay==1) {
+		// Butona týklanýrsa yeni bir oyun baþlat
+		pencere.pencerekapat();
+		Uygulama yeniOyun;
+		yeniOyun.insaEt(1280, 720);
+		yeniOyun.baslat(60); // FPS'yi geçmek istiyorsanýz bunu da parametre olarak geçebilirsiniz
+	}
+	// "Kapat" butonuna týklama kontrolü
+	if (buton.getGlobalBounds().contains(farePozisyonu) &&
+		sf::Mouse::isButtonPressed(sf::Mouse::Left) && olay == 0) {
+		// Uygulama kapansýn
+		pencere.pencerekapat();
+	}
+}
+
+void Uygulama::ekrandaButonVeSkorGoster()
+{
+	// Fontu yükleyelim
+	sf::Font font;
+	if (!font.loadFromFile("D:/SFML/font/arimo/ArimoBold.ttf")) {
+		std::cerr << "Font yüklenemedi!" << std::endl;
+		return;
+	}
+
+	// Skor metnini oluþturma
+	sf::Text skorMetni;
+	skorMetni.setFont(font);
+	skorMetni.setCharacterSize(34);
+	skorMetni.setPosition(540, 215);
+	skorMetni.setFillColor(sf::Color::Black);
+	skorMetni.setString("Skor:   " + std::to_string(puan));
+
+	// Buton oluþturma
+	sf::RectangleShape buton(sf::Vector2f(200, 50)); // Buton boyutu
+	buton.setFillColor(sf::Color::Green);
+	buton.setPosition(540, 300); // Ekranda butonun yerini ayarla
+
+	// "Kapat" butonunu oluþturma
+	sf::RectangleShape kapatButonu(sf::Vector2f(200, 50)); // Buton boyutu
+	kapatButonu.setFillColor(sf::Color::Red);
+	kapatButonu.setPosition(540, 370); // Ekranda butonun yerini ayarla
+
+	// Buton üzerindeki yazýyý oluþturma
+	sf::Text butonYazisi;
+	butonYazisi.setFont(font);
+	butonYazisi.setCharacterSize(20);
+	butonYazisi.setFillColor(sf::Color::Black);
+	butonYazisi.setString("Tekrar Oyna");
+	butonYazisi.setPosition(580, 315); // Buton üzerindeki yazý
+
+	// "Kapat" butonundaki yazýyý oluþturma
+	sf::Text kapatButonYazisi;
+	kapatButonYazisi.setFont(font);
+	kapatButonYazisi.setCharacterSize(20);
+	kapatButonYazisi.setFillColor(sf::Color::Black);
+	kapatButonYazisi.setString("Kapat");
+	kapatButonYazisi.setPosition(610, 385); // Buton üzerindeki yazý
+
+	// Hover olayýný kontrol et
+	hoverKontrol(buton, fareGuncelKonum);
+	hoverKontrol(kapatButonu, fareGuncelKonum);
+	// Buton ve skoru ekranda çizme
+	tiklamaKontrol(buton, fareGuncelKonum,1);
+	tiklamaKontrol(kapatButonu, fareGuncelKonum,0);
+
+
+	pencere.temizle();
+	pencere.ciz(skorMetni);  // Skoru ekranda göster
+	pencere.ciz(buton);      // Butonu ekranda göster
+	pencere.ciz(butonYazisi); // Buton yazýsýný ekranda göster
+	pencere.ciz(kapatButonu); // Kapat butonunu ekranda göster
+	pencere.ciz(kapatButonYazisi); // Kapat butonu yazýsýný ekranda göster
+	
+	pencere.goster();
+}
+
 void Uygulama::baslat(int fps)
 {
 	float cerfps = 1.0f / fps;
 	cerceveSuresi = sf::seconds(cerfps);
 
 	gecenSure = saat.restart();
+
+
 	karakter.yonAta(YON::Dur);
-	konsolarayüz();
+;
 	while (pencere.pencereAcikmi())
 	{
 		pencere.olaylariisle();
-
+		sf::Vector2i farePozisyonuGlobal = sf::Mouse::getPosition(pencere.getRenderWindow());  // Global fare pozisyonu
+		fareGuncelKonum = pencere.getRenderWindow().mapPixelToCoords(farePozisyonuGlobal);
 		gecenSure = saat.getElapsedTime();
 
 		if (gecenSure >= cerceveSuresi)
 		{
-			cerceveOlustur();
-			karakter.karakterKontrol();
-			karakterhasar();
-			dusmanguncelle();
-			mermiguncelle();
-			canKontrol();
-			maxDusmanArttirma();
-			gecenSure = sf::seconds(0.0f);
-			saat.restart();
+			if(Can <= 0) {
+				
+				ekrandaButonVeSkorGoster();
+				// Týklama olayýný kontrol et
+				
+				gecenSure = sf::seconds(0.0f);
+				saat.restart();
+			}
+			else {
+				cerceveOlustur();
+				karakter.karakterKontrol();
+				karakterhasar();
+				dusmanguncelle();
+				mermiguncelle();
+				canKontrol();
+				maxDusmanArttirma();
+				gecenSure = sf::seconds(0.0f);
+				saat.restart();
+			}
 		}
 		else
 		{

@@ -1,5 +1,5 @@
-#include "pencere.hpp"
-
+oyun#include "pencere.hpp"
+#include "uygulama.hpp"
 void Pencere::olustur(unsigned int genislik, unsigned int yukseklik, const sf::String& ad)
 {
 	mpencere.create(sf::VideoMode(genislik, yukseklik), ad);
@@ -10,6 +10,7 @@ void Pencere::ciz(Drawable& sekil)
 	mpencere.draw(sekil);
 
 }
+
 
 void Pencere::olaylariisle()
 {
@@ -82,4 +83,9 @@ void Pencere::farehareketfonkekle(FareHareketFonk fonk)
 void Pencere::faretiklamafonkekle(FareTiklamaFonk fonk)
 {
 	fareTiklamaFonklari.push_back(fonk);
+}
+
+sf::RenderWindow& Pencere::getRenderWindow()
+{
+	return mpencere; // mpencere sf::RenderWindow tipinde olduðu için doðrudan dönebiliriz
 }

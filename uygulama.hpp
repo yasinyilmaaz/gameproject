@@ -2,6 +2,7 @@
 #include "Pencere.hpp"
 #include "karakter.hpp"
 #include "mermi.hpp"
+
 class Uygulama
 {
 	Pencere pencere;
@@ -21,6 +22,7 @@ class Uygulama
 	int Can = 3;
 	int YokEdilenD = 0;
 	int puan = 0;
+	// Buton ve metin öðeleri
 	Vector2f fareGuncelKonum;
 	Vector2f fareTiklanmaKonum;
 	sf::Clock saat;
@@ -42,9 +44,13 @@ class Uygulama
 	void mermiguncelle();
 	void canKontrol();
 	void maxDusmanArttirma();
-	void konsolarayüz();
+	void ekrandaButonVeSkorGoster();
+	void tiklamaKontrol(sf::RectangleShape& buton, sf::Vector2f farePozisyonu, int olay);
+	void hoverKontrol(sf::RectangleShape& buton, sf::Vector2f farePozisyonu);
+
 public:
 	Uygulama();
 	void insaEt(int genislik, int yukseklik);
 	void baslat(int fps = 60);
+
 };
