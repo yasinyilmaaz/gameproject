@@ -21,6 +21,8 @@ class Uygulama
 	vector<Dusman> dusmanlar;
 	Mermi mermi;
 	vector<Mermi> mermiler;
+	sf::Font font;
+	string font1 = "C:/Users/90505/source/repos/gameproject/ArimoBold.ttf"; // font dosyasý uzantýsý
 	float dusmanuretmehiziMax = 20.f;
 	float dusmanuretmehizi = this->dusmanuretmehiziMax;
 	int maxDusman = 10;

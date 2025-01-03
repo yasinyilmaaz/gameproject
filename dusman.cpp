@@ -71,9 +71,16 @@ void Dusman::Canata(int can)
 
 void Dusman::hareket(Vector2f hedef)
 {
-    Vector2f yol = hedef - mkonum;//düþman ile karakterin mevcut konumu arasýndaki uzaklýðý vektörel olarak hesaplama
-    sf::Vector2f dusmanyol = Dusmanyol(yol);//bu hesapladaýðýmýz mesafeyi birim vektöre çevirme
-    mkonum += dusmanyol * hiz;//düþmanýn birim vektöre göre hareketi
+        
+    try {
+        Vector2f yol = hedef - mkonum;//düþman ile karakterin mevcut konumu arasýndaki uzaklýðý vektörel olarak hesaplama
+        sf::Vector2f dusmanyol = Dusmanyol(yol);//bu hesapladaýðýmýz mesafeyi birim vektöre çevirme
+        mkonum += dusmanyol * hiz;//düþmanýn birim vektöre göre hareketi
+	}
+	catch (const char* hata)
+	{
+		cout << hata << endl;
+    
 }
 
 void Dusman::dusmanUret()
@@ -107,13 +114,18 @@ void Dusman::dusmanUret()
     default:
         break;
     }
-
-    if ((x < 0 || x >= genislik) || (y < 0 || y >= yukseklik)) {
-        mkonum = Vector2f(x, y);
+    try {
+        if ((x < 0 || x >= genislik) || (y < 0 || y >= yukseklik)) {
+            mkonum = Vector2f(x, y);
+        }
+        else {
+            dusmanUret();
+        }
     }
-    else {
-        dusmanUret();
+    catch (const char* hata) {
+        cout << hata << endl;
     }
+    
 }
 
 void Dusman::ayarla(unsigned int yukseklik, unsigned int genislik)

@@ -54,7 +54,13 @@ void Uygulama::tusBirakildi(sf::Keyboard::Key tus)
 
 void Uygulama::fareHareket(sf::Event::MouseMoveEvent olay)
 {
-	fareGuncelKonum = Vector2f(olay.x, olay.y); // Fare pozisyonunu günceller 
+	try {
+		fareGuncelKonum = Vector2f(olay.x, olay.y); // Fare pozisyonunu günceller 
+	}
+	catch (const char* error) {
+		cout << error << endl;
+	}
+	
 }
 
 
@@ -397,8 +403,8 @@ void Uygulama::tiklamaKontrol(sf::RectangleShape& buton, sf::Vector2f farePozisy
 void Uygulama::ekrandaButonVeSkorGoster()
 {
 	// Fontu yükleyeme baþarýlý olursa devam et
-	sf::Font font;
-	if (!font.loadFromFile("D:/SFML/font/arimo/ArimoBold.ttf")) {
+
+	if (!font.loadFromFile(font1)) {
 		std::cerr << "Font yüklenemedi!" << std::endl;
 		return;
 	}
