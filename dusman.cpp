@@ -2,21 +2,21 @@
 #include <iostream>
 Dusman::Dusman()
 {
-    sekil.setFillColor(renk);//baþlangýç rengi
-    sekil.setOutlineColor(Color::Black);//dýþ kenar rengi
-    sekil.setOutlineThickness(2);//kenar kalýnlýðý
-    boyutAta(30);//düþman boyut atamasý
-    hizAta(1.5);//düþman hýz atamasý
-    Canata(1);//düþman caný
+    sekil.setFillColor(renk);//baï¿½langï¿½ï¿½ rengi
+    sekil.setOutlineColor(Color::Black);//dï¿½ï¿½ kenar rengi
+    sekil.setOutlineThickness(2);//kenar kalï¿½nlï¿½ï¿½ï¿½
+    boyutAta(30);//dï¿½ï¿½man boyut atamasï¿½
+    hizAta(1.5);//dï¿½ï¿½man hï¿½z atamasï¿½
+    Canata(1);//dï¿½ï¿½man canï¿½
     dusmanUret();
 
-	// çarpýþma kenarlarýnýn boyutlarý
-    k1.setSize(Vector2f(30, 5));//düþman çarpýþma kenarlarýnýn atanmasý
+	// ï¿½arpï¿½ï¿½ma kenarlarï¿½nï¿½n boyutlarï¿½
+    k1.setSize(Vector2f(30, 5));//dï¿½ï¿½man ï¿½arpï¿½ï¿½ma kenarlarï¿½nï¿½n atanmasï¿½
     k2.setSize(Vector2f(5, 30));
     k3.setSize(Vector2f(30, 5));
     k4.setSize(Vector2f(5, 30));
 
-	// çarpýþma kenarlarýnýn rengi
+	// ï¿½arpï¿½ï¿½ma kenarlarï¿½nï¿½n rengi
     k1.setFillColor(Color::Transparent);
     k2.setFillColor(Color::Transparent);
     k3.setFillColor(Color::Transparent);
@@ -25,13 +25,13 @@ Dusman::Dusman()
 
 void Dusman::ciz(Pencere& pencere)
 {
-    sekil.setPosition(mkonum);//düþman ve çarpýþma kenarlarýnýn baþlangýç konumu
+    sekil.setPosition(mkonum);//dï¿½ï¿½man ve ï¿½arpï¿½ï¿½ma kenarlarï¿½nï¿½n baï¿½langï¿½ï¿½ konumu
     k1.setPosition(mkonum);
     k2.setPosition(mkonum + Vector2f(30, 0));
     k3.setPosition(mkonum + Vector2f(2, 30));
     k4.setPosition(mkonum);
 
-    pencere.ciz(sekil);//düþmanýn ve çarpýþma kenarlarýnýn çizimi
+    pencere.ciz(sekil);//dï¿½ï¿½manï¿½n ve ï¿½arpï¿½ï¿½ma kenarlarï¿½nï¿½n ï¿½izimi
     pencere.ciz(k1);
     pencere.ciz(k2);
     pencere.ciz(k3);
@@ -46,7 +46,7 @@ float Dusman::boyutgetir()
 void Dusman::boyutAta(float boyut)
 {
     this->boyut = boyut;
-    sekil.setSize(Vector2f(boyut, boyut));//aldýðýmýz boyutu boyut*boyut'luk kare olacak þekilde atýyoruz
+    sekil.setSize(Vector2f(boyut, boyut));//aldï¿½ï¿½ï¿½mï¿½z boyutu boyut*boyut'luk kare olacak ï¿½ekilde atï¿½yoruz
 }
 
 float Dusman::hizgetir()
@@ -73,40 +73,40 @@ void Dusman::hareket(Vector2f hedef)
 {
         
     try {
-        Vector2f yol = hedef - mkonum;//düþman ile karakterin mevcut konumu arasýndaki uzaklýðý vektörel olarak hesaplama
-        sf::Vector2f dusmanyol = Dusmanyol(yol);//bu hesapladaýðýmýz mesafeyi birim vektöre çevirme
-        mkonum += dusmanyol * hiz;//düþmanýn birim vektöre göre hareketi
+        Vector2f yol = hedef - mkonum;//dï¿½ï¿½man ile karakterin mevcut konumu arasï¿½ndaki uzaklï¿½ï¿½ï¿½ vektï¿½rel olarak hesaplama
+        sf::Vector2f dusmanyol = Dusmanyol(yol);//bu hesapladaï¿½ï¿½ï¿½mï¿½z mesafeyi birim vektï¿½re ï¿½evirme
+        mkonum += dusmanyol * hiz;//dï¿½ï¿½manï¿½n birim vektï¿½re gï¿½re hareketi
 	}
 	catch (const char* hata)
 	{
 		cout << hata << endl;
     
+    }
 }
-
 void Dusman::dusmanUret()
 {
     int x = 0, y = 0;
 
-    // Rastgele bir kenar seçiyoruz (üst, alt, sol veya sað)
+    // Rastgele bir kenar seï¿½iyoruz (ï¿½st, alt, sol veya saï¿½)
     int kenar = rand() % 4;
 
     switch (kenar) {
-    case 0: // Üst (oyun alanýnýn üstünde)
+    case 0: // ï¿½st (oyun alanï¿½nï¿½n ï¿½stï¿½nde)
         x = rand() % genislik;
         y = -50;
         break;
 
-    case 1: // Alt (oyun alanýnýn altýnda)
+    case 1: // Alt (oyun alanï¿½nï¿½n altï¿½nda)
         x = rand() % genislik;
         y = yukseklik + 50;
         break;
 
-    case 2: // Sol (oyun alanýnýn solunda)
+    case 2: // Sol (oyun alanï¿½nï¿½n solunda)
         x = -50;
         y = rand() % yukseklik;
         break;
 
-    case 3: // Sað (oyun alanýnýn saðýnda)
+    case 3: // Saï¿½ (oyun alanï¿½nï¿½n saï¿½ï¿½nda)
         x = genislik + 50;
         y = rand() % yukseklik;
         break;
@@ -139,13 +139,13 @@ RectangleShape Dusman::getsekil()
     return sekil;
 }
 
-// Düþmanýn hareket yönünü belirler (birim vektör) ve döndürür
+// Dï¿½ï¿½manï¿½n hareket yï¿½nï¿½nï¿½ belirler (birim vektï¿½r) ve dï¿½ndï¿½rï¿½r
 Vector2f Dusman::Dusmanyol(Vector2f& yol)
 {
     try {
 		float uzunluk = sqrt(yol.x * yol.x + yol.y * yol.y);
 		if (uzunluk == 0)
-			throw "Düþman yol hesaplanamadý";
+			throw "Dï¿½ï¿½man yol hesaplanamadï¿½";
 		return Vector2f(yol.x / uzunluk, yol.y / uzunluk);
 	}
     catch (const char* hata)
@@ -176,7 +176,7 @@ RectangleShape Dusman::getk4()
 
 void Dusman::dusmanitis(YON yon)
 {
-    switch (yon)//düþmanlar birbirine çarparsa çarptýklarý yöne göre birbirini itecek
+    switch (yon)//dï¿½ï¿½manlar birbirine ï¿½arparsa ï¿½arptï¿½klarï¿½ yï¿½ne gï¿½re birbirini itecek
     {
     case YON::Yukari:
         mkonum.y -= 1;
