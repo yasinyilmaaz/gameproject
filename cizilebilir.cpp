@@ -1,10 +1,8 @@
 #include "cizilebilir.hpp"
 
-
-
 Vector2f Cizilebilir::konumGetir()
 {
-	// Konumu döndürür
+	// Konumu dÃ¶ndÃ¼rÃ¼r
     return mkonum;
 }
 
